@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather App</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #e0f7ff;
+      padding-top: 50px;
+    }
+
+    .box {
+      background: white;
+      width: 300px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      width: 85%;
+      background: skyblue;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    button:hover {
+      background: rgb(47, 100, 212);
+    }
+
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h2>🌤 Weather App</h2>
+
+    <input type="text" id="city" placeholder="Enter city">
+    <button onclick="getWeather()">Search</button>
+
+    <p id="result"></p>
+
+  </div>
+
+  <script>
+   
+    const apiKey = "4a28b93d08b991c8b60f9fec071607db";
+
+    function getWeather() {
+      const city = document.getElementById("city").value;
+
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("result").innerHTML =
+            "🌡 Temp: " + data.main.temp + "°C <br>" +
+            "☁ Weather: " + data.weather[0].description;
+        })
+        .catch(() => {
+          document.getElementById("result").innerHTML = "Error ";
+        });
+    }
+  </script>
+
+</body>
+</html>
